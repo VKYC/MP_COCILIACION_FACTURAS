@@ -5,8 +5,6 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     facturas_conciliacion_id = fields.Many2one(comodel_name='mp.facturas.conciliacion', readonly=True)
-    for_payroll = fields.Char()
-    payroll_payment_id = fields.Many2one('account.payment')
 
     def button_reconcile_custom(self):
         tree_view = self.env.ref("account_move_reconcile.account_facturacion_conciliacion_wizard_tree")
