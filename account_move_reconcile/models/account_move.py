@@ -23,7 +23,7 @@ class AccountMove(models.Model):
             })
 
         return {
-            'name': _('Reconcile document'),
+            'name': _('Conciliar Documento'),
             'view_id': tree_view.id,
             'view_mode': 'tree',
             'res_model': 'account.facturacion.conciliacion.wizard',
