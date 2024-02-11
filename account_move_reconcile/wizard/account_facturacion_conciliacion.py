@@ -18,7 +18,7 @@ class AccountFacturacionConciliacion(models.TransientModel):
     fecha_vencimiento = fields.Datetime(related='factura_conciliacion_id.fecha_vencimiento')
     orden_compra = fields.Char(related='factura_conciliacion_id.orden_compra')
     fecha_sii = fields.Datetime(related='factura_conciliacion_id.fecha_sii')
-    amount_total = fields.Integer(related='factura_conciliacion_id.monto_total')
+    amount_total = fields.Float(related='factura_conciliacion_id.monto_total')
 
     def button_select_reconcile(self):
         tree_view = self.env.ref("account_move_reconcile.account_facturacion_conciliacion_wizard_confirmation_form")
