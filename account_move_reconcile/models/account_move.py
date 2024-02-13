@@ -16,7 +16,8 @@ class AccountMove(models.Model):
     @api.onchange('l10n_latam_document_number')
     def _onchange_document_number(self):
         for move_id in self:
-            if move_id.l10n_latam_document_number and move_id.sii_document_number in [False, 0]:
+            if move_id.l10n_latam_document_number and move_id.sii_document_number in [False, 0] \
+                    and isinstance(move_id.l10n_latam_document_number, int):
                 move_id.sudo().sii_document_number = move_id.l10n_latam_document_number
                 move_id.sudo().l10n_latam_document_number = move_id.sii_document_number
 
