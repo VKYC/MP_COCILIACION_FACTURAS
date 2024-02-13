@@ -5,8 +5,8 @@
     'author': "Tonny Velazquez Juarez",
     'website': "corner.store59@gmail.com",
     'category': 'account',
-    'version': '15.0.0.0.1',
-    'depends': ['account', 'l10n_latam_base'],
+    'version': '15.0.0.0.10',
+    'depends': ['account', 'l10n_latam_base', 'l10n_cl_fe'],
     'data': [
         'security/ir.model.access.csv',
         'wizard/account_facturacion_conciliacion_views.xml',

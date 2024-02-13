@@ -1,10 +1,24 @@
 from odoo import api, models, fields, _
+from odoo.exceptions import UserError
 
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
     facturas_conciliacion_id = fields.Many2one(comodel_name='mp.facturas.conciliacion', readonly=True)
+
+    def action_post(self):
+        if not self.facturas_conciliacion_id:
+            raise UserError("El documento debe tener un Numero de SII asignado")
+        res = super(AccountMove, self).action_post()
+        return res
+
+    @api.onchange('l10n_latam_document_number')
+    def _onchange_document_number(self):
+        for move_id in self:
+            if move_id.l10n_latam_document_number and move_id.sii_document_number in [False, 0]:
+                move_id.sudo().sii_document_number = move_id.l10n_latam_document_number
+                move_id.sudo().l10n_latam_document_number = move_id.sii_document_number
 
     def button_reconcile_custom(self):
         tree_view = self.env.ref("account_move_reconcile.account_facturacion_conciliacion_wizard_tree")
