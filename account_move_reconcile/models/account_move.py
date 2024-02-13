@@ -24,7 +24,6 @@ class AccountMove(models.Model):
         tree_view = self.env.ref("account_move_reconcile.account_facturacion_conciliacion_wizard_tree")
         self.with_context(default_move_id=self.id)
         facturas_conciliacion_ids = self.env['mp.facturas.conciliacion'].search([
-            ('rzn_soc_emisor', '=', self.partner_id.name),
             ('rut_emisor', '=', self.partner_id.vat),
             ('monto_total', '=', self.amount_total),
             ('estado', '=', False),
