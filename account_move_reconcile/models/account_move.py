@@ -8,7 +8,8 @@ class AccountMove(models.Model):
     facturas_conciliacion_id = fields.Many2one(comodel_name='mp.facturas.conciliacion', readonly=True)
 
     def action_post(self):
-        if not self.facturas_conciliacion_id:
+        if not self.facturas_conciliacion_id and (self.partner_id and self.partner_id.responsability_id.id == 2 and
+                                                  self.partner_id.l10n_cl_sii_taxpayer_type == 1):
             raise UserError("El documento debe tener un Numero de SII asignado")
         res = super(AccountMove, self).action_post()
         return res
