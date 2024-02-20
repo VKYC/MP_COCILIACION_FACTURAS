@@ -28,9 +28,9 @@ class AccountMove(models.Model):
     @api.onchange('l10n_latam_document_number')
     def _onchange_document_number(self):
         for move_id in self:
-            if not move_id.l10n_latam_document_number.isdigit():
+            if move_id.l10n_latam_document_number and not move_id.l10n_latam_document_number.isdigit():
                 raise UserError("El numero de documento debe ser de tipo numerico")
-            if not move_id.facturas_conciliacion_id and move_id.l10n_latam_document_number.isdigit():
+            if not move_id.facturas_conciliacion_id and move_id.l10n_latam_document_number and move_id.l10n_latam_document_number.isdigit():
                 move_id.sudo().sii_document_number = move_id.l10n_latam_document_number
                 move_id.sudo().l10n_latam_document_number = move_id.sii_document_number
 
