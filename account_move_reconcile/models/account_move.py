@@ -6,6 +6,14 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     facturas_conciliacion_id = fields.Many2one(comodel_name='mp.facturas.conciliacion', readonly=True)
+    show_btn_reconcile_button = fields.Boolean(compute="show_btn_reconcile")
+
+    def show_btn_reconcile(self):
+        if self.partner_id and self.partner_id.responsability_id.id == 2 and\
+                self.partner_id.l10n_cl_sii_taxpayer_type == '1':
+            self.show_btn_reconcile_button = True
+        else:
+            self.show_btn_reconcile_button = False
 
     def action_post(self):
         if not self.facturas_conciliacion_id and (self.partner_id and self.partner_id.responsability_id.id == 2 and
