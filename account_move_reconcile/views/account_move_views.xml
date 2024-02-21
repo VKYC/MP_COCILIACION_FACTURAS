@@ -9,7 +9,12 @@
                 <widget name="web_ribbon" title="Conciliado SII" attrs="{'invisible':[('facturas_conciliacion_id','=',False)]}"/>
             </xpath>
             <xpath expr="//button[@name='button_set_checked']" position="after">
-                <button name="button_reconcile_custom" string="Conciliar Factura" type="object"/>
+                <field name="show_btn_reconcile_button" invisible="1"/>
+                <button name="button_reconcile_custom" string="Conciliar Factura" type="object"
+                        style="background-color: #808080; color: #ffffff;" class="btn btn-secondary" disabled="1"
+                        attrs="{'invisible':[('show_btn_reconcile_button', '=', True)]}"/>
+                <button name="button_reconcile_custom" string="Conciliar Factura" type="object"
+                        attrs="{'invisible':[('show_btn_reconcile_button', '=', False)]}"/>
             </xpath>
             <xpath expr="//group/group[@id='header_left_group']/field[@name='partner_id']" position="after">
                 <div class="o_td_label">
