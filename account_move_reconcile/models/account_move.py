@@ -16,8 +16,11 @@ class AccountMove(models.Model):
             self.show_btn_reconcile_button = False
 
     def action_post(self):
-        if not self.facturas_conciliacion_id and (self.partner_id and self.partner_id.responsability_id.id == 2 and
-                                                  self.partner_id.l10n_cl_sii_taxpayer_type == '1'):
+        if self.move_type == 'in_invoice' and \
+                (not self.facturas_conciliacion_id and
+                 (self.partner_id and self.partner_id.responsability_id.id == 2 and
+                  self.partner_id.l10n_cl_sii_taxpayer_type == '1')
+        ):
             raise UserError("El documento debe tener un Numero de SII asignado")
         res = super(AccountMove, self).action_post()
         return res
