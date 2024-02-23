@@ -39,11 +39,12 @@ class AccountMove(models.Model):
     @api.onchange('l10n_latam_document_number')
     def _onchange_document_number(self):
         for move_id in self:
-            if move_id.l10n_latam_document_number and not move_id.l10n_latam_document_number.isdigit():
-                raise UserError("El numero de documento debe ser de tipo numerico")
-            if not move_id.facturas_conciliacion_id and move_id.l10n_latam_document_number and move_id.l10n_latam_document_number.isdigit():
-                move_id.sudo().sii_document_number = move_id.l10n_latam_document_number
-                move_id.sudo().l10n_latam_document_number = move_id.sii_document_number
+            if move_id.id or move_id.id.origin:
+                if move_id.l10n_latam_document_number and not move_id.l10n_latam_document_number.isdigit():
+                    raise UserError("El numero de documento debe ser de tipo numerico")
+                if not move_id.facturas_conciliacion_id and move_id.l10n_latam_document_number and move_id.l10n_latam_document_number.isdigit():
+                    move_id.sudo().sii_document_number = move_id.l10n_latam_document_number
+                    move_id.sudo().l10n_latam_document_number = move_id.sii_document_number
 
     def button_reconcile_custom(self):
         tree_view = self.env.ref("account_move_reconcile.account_facturacion_conciliacion_wizard_tree")
