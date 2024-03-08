@@ -41,4 +41,56 @@
             </form>
         </field>
     </record>
+
+    <record id="view_mp_conciliacion_filter" model="ir.ui.view">
+        <field name="name">mp.facturas.conciliacion</field>
+        <field name="model">mp.facturas.conciliacion</field>
+        <field name="arch" type="xml">
+            <search>
+                <field
+                    name="folio"
+                    string="Folio"
+                />
+                <field
+                    name="rzn_soc_emisor"
+                    string="Razon Social Emisor"
+                />
+                <field
+                    name="rut_emisor"
+                    string="RUT Emisor"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="mp_facturas_sii" model="ir.ui.view">
+        <field name="name">mp.facturas.conciliacion</field>
+        <field name="model">mp.facturas.conciliacion</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="rzn_soc_emisor" />
+                <field name="rut_emisor" />
+                <field name="folio" />
+                <field name="monto_total" />
+                <field name="fecha_emision" />
+                <field name="fecha_vencimiento" />
+                <field name="orden_compra" />
+                <field name="fecha_sii" />
+                <field name="estado" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_factura_sii" model="ir.actions.act_window">
+        <field name="name">Factura SII</field>
+        <field name="res_model">mp.facturas.conciliacion</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_mp_conciliacion_filter"/>
+    </record>
+    <menuitem
+        id="menu_factura_sii"
+        name="Factura SII"
+        parent="account.menu_finance_payables"
+        sequence="500"
+        action="action_factura_sii"
+    />
 </odoo>
